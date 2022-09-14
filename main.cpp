@@ -1,15 +1,11 @@
-#include "List.h"
-#include "Array.h"
+#include "SeqList.h"
+#include "LinkList.h"
+#include "SeqStack.h"
 
 void kizk(){
-
-    Array a;
-    InitArray(a);
-    PrintArray(a);
-    Del(a, 2);
-    PrintArray(a);
-    Add(a, 2, 2);
-    PrintArray(a);
+    int x;
+    scanf("%d", &x);
+    Converstion(x);
 }
 
 

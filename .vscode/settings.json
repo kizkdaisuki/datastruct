@@ -1,2 +1,9 @@
 {
+  "files.associations": {
+    "iterator": "cpp",
+    "memory": "cpp",
+    "xutility": "cpp",
+    "ios": "cpp",
+    "xiosbase": "cpp"
+  }
 }

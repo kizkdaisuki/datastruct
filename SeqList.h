@@ -1,24 +1,22 @@
 #include "head.h" 
-
-#define mal_arr (Array)malloc(sizeof (struct ArrayNode))
 #define OK 1
 #define ERROR 0
-#define SIZE 20
+#define SeqList_SIZE 20
 typedef int ElementType;
 typedef int Status;
 
-typedef struct {
+typedef struct SeqList{
     ElementType* data;
     int length;
     int MaxSize;
-}Array;
+}SeqList;
 
-Status InitArray(Array& a){
+Status InitSeqList(SeqList& a){
     ElementType* q;
-    a.data = (ElementType*)malloc(SIZE * sizeof (Array));
+    a.data = (ElementType*)malloc(SeqList_SIZE * sizeof (ElementType));
     q = a.data;
     a.length = 0;
-    a.MaxSize = SIZE;
+    a.MaxSize = SeqList_SIZE;
     int i = 0;
     for(i = 0; i < 10; i ++)
     {
@@ -31,14 +29,19 @@ Status InitArray(Array& a){
 
 }
 
-Status CleaArray(Array& a){
+Status CleaSeqList(SeqList& a){
     if(!a.length)
         return ERROR;
     a.length = 0;
     return OK;
 }
 
-Status PrintArray(Array & a){
+Status PrintSeqList(SeqList & a){
+    if(!a.length)
+    {
+        printf("SeqList is empty\n");
+        return false;
+    }
     int i;
     for(i = 0; i < a.length; i ++)
         printf("%d ", *(a.data + i)); 
@@ -48,7 +51,7 @@ Status PrintArray(Array & a){
 
 }
 
-Status Add(Array& a, int idx, int value){
+Status Add(SeqList& a, int idx, int value){
     if(idx < 1 || idx > a.length)
         return ERROR;
     int i;
@@ -59,7 +62,7 @@ Status Add(Array& a, int idx, int value){
     return OK;
 }
 
-Status Del(Array& a, int idx){
+Status Del(SeqList& a, int idx){
     if(idx < 1 || idx > a.length)
         return ERROR;
     int i;
