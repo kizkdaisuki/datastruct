@@ -1,4 +1,5 @@
 #include "head.h" 
+
 #define OK 1
 #define ERROR 0
 #define SeqList_SIZE 20

@@ -1,11 +1,9 @@
 #include "SeqList.h"
 #include "LinkList.h"
 #include "SeqStack.h"
-
+#include "SeqQueue.h"
 void kizk(){
-    int x;
-    scanf("%d", &x);
-    Converstion(x);
+    test();
 }
 
 
