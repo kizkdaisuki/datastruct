@@ -1,16 +1,16 @@
 #include "head.h"
 
-#define mal_list  (List)malloc(sizeof (struct ListNode))
+#define mal_list  (List)malloc(sizeof (struct LinkList))
 #define OK 1
 #define ERROR 0
 typedef int ElementType;
 typedef int Status;
 
 
-typedef struct ListNode{
+typedef struct LinkList{
     ElementType val;
     ListNode* next;
-}ListNode, *List;
+}LinkList, *List;
 
 // 初始化链表
 Status InitList(List& list){
