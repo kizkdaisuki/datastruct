@@ -3,7 +3,7 @@
 #include "SeqStack.h"
 #include "SeqQueue.h"
 void kizk(){
-    test();
+    testqueue();
 }
 
 

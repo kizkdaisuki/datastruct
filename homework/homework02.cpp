@@ -39,6 +39,7 @@ Status InsertToHead(List& head, int val){
 List merge_List(List& l1, List& l2){
     List p = mal_list;
     p->next = NULL;
+    List head = p;
     while(l1 && l2)
     {
         if(l1->val <= l2->val)
@@ -51,10 +52,9 @@ List merge_List(List& l1, List& l2){
         p->next = l1, l1 = l1->next, p = p->next;
     while(l2)
         p->next = l2, l2 = l2->next, p = p->next;
-    List res = mal_list;
-    res->next = NULL;
-    res->next = p;
-    return res;
+    p->next = NULL;
+    
+    return head;
 }
 
 
@@ -80,3 +80,6 @@ int main (){
 
     return 0;
 }
+
+
+   

@@ -40,18 +40,23 @@ void quick_sort(SeqList& s, int l, int r){
     }
 }
 
-void merge_SeqList(SeqList& s1, SeqList& s2){
+SeqList merge_SeqList(SeqList& s1, SeqList& s2){
     int i = 0, j = 0;
     int n = s1.length, m = s2.length;
+    SeqList t;
+    t.length = 0, t.MaxSize = n + m + 2;
+    t.data = (ElementType*)malloc((n + m + 2) * sizeof (ElementType));
+    ElementType* q = t.data;
     while(i < n && j < m)
     {
         if(s1.data[i] <= s2.data[j])
-            printf("%d ", s1.data[i ++]);
+            *(q ++ ) = s1.data[i ++], t.length ++ ;
         else 
-            printf("%d ", s2.data[j ++]);
+            *(q ++ ) = s2.data[j ++], t.length ++ ;
     }
-    while(i < n)printf("%d ", s1.data[i ++]);
-    while(j < m)printf("%d ", s2.data[j ++]);
+    while(i < n)*(q ++ ) = s1.data[i ++ ], t.length ++ ;
+    while(j < m)*(q ++ ) = s2.data[j ++ ], t.length ++ ;
+    return t;
     
 }
 
@@ -65,9 +70,9 @@ Status InitSeqList(SeqList& a){
     int i = 0;
     for(i = 0; i < 10; i ++)
     {
-        *q = rand() % 100;
+        *(q ++) = rand() % 100;
         a.length ++ ;
-        q ++ ;
+        
     }
 
     return OK;
@@ -122,9 +127,9 @@ void solve(){
     SeqList L1, L2;
     InitSeqList(L1), InitSeqList(L2);
     PrintSeqList(L1), PrintSeqList(L2);
-    // printf("%d %d\n", L1.length, L2.length);
     quick_sort(L1, 0, L1.length - 1), quick_sort(L2, 0, L2.length - 1);
-    merge_SeqList(L1, L2);
+    SeqList res = merge_SeqList(L1, L2);
+    PrintSeqList(res);
 
 }
 
