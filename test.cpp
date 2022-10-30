@@ -1,75 +1,81 @@
-//PREPEND BEGIN
+//
+//  main.c
+//  zsy2_2
+//
+//  Created by 赵诗意 on 2022/9/26.
+//
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
+typedef int ElemType;
+typedef struct LNode
+{
+    ElemType data;
+    struct LNode *next;
+}LNode,*LinkList;
 
-using namespace std;
-typedef int ElementType;
-typedef struct Node *PtrToNode;
-struct Node {
-    ElementType Data;
-    PtrToNode   Next;
-};
-typedef PtrToNode List;
-List Read(); /* 细节在此不表 */
-void Print(List L); /* 细节在此不表 */
-List Reverse(List L);
-//PREPEND END
-
-//TEMPLATE BEGIN
-List Reverse( List L){
-    List res, temp;
-    while(L)
-    {
-        temp = L->Next;
-        L->Next = res;
-        res = L;
-        L = temp;
+LinkList CreateList_L(LinkList head)
+{ElemType temp;
+    LinkList p;
+    printf("请输人结点值(输人0结束):\n");
+    scanf("%d", &temp);
+    while(temp) {
+            printf("请输人结点值(输人0结束):\n");
+            p= (LinkList)malloc(sizeof(LNode));
+            p-> data = temp;
+            p-> next = head->next;
+            head -> next = p;
+            scanf("%d", &temp);
+        }
+        return head;
     }
-    return res;
-}
-//TEMPLATE END
 
-//APPEND BEGIN
-int main() {
-List L1, L2;
-    L1 = Read();
-    
-    L2 = Reverse(L1);
-    Print(L1);
-    Print(L2);
+void ListPint_L(LinkList head)
+{LinkList p;
+    int i = 0;
+    p= head->next;
+    while(p)
+    {
+        i ++ ;
+        printf("第%d个元素是：%d \n", i, p->data);
+        p = p->next;
+    }
+}
+
+void merge(LinkList L1, LinkList L2, LinkList L3){
+    LinkList p = L3;
+    while(L1 && L2)
+    {
+        if(L1->data <= L2->data)
+            p->next = L1, L1 = L1->next;
+        else
+            p->next = L2, L2 = L2->next;
+        p = p->next;
+    }
+    while(L1)
+        p->next = L1, L1 = L1->next, p = p->next;
+    while(L2)
+        p->next = L2, L2 = L2->next, p = p->next;
+    p->next = NULL;
+}
+
+int main(){
+    LinkList L1 = (LinkList)malloc(sizeof (LNode));
+    LinkList L2 = (LinkList)malloc(sizeof (LNode));
+    LinkList L3 = (LinkList)malloc(sizeof (LNode));
+    L1->next = NULL;
+    L2->next = NULL;
+    L3->next = NULL;
+    printf("请输入L1的结点:\n");
+    CreateList_L(L1);
+    printf("请输入L2的结点:\n");
+    CreateList_L(L2);
+    printf("链表L1：\n");
+    ListPint_L(L1);
+    printf("链表L2：\n");
+    ListPint_L(L2);
+    merge(L1->next,L2->next,L3);
+    printf("L1和L2合并:\n");
+    ListPint_L(L3);
     return 0;
 }
-List Read()
-{
-    int n; scanf("%d", &n);
-    List list=NULL, temp, p;
-    if (n >= 1){
-        list = (List)malloc(sizeof(Node));
-        scanf("%d", &list->Data);
-        list->Next = NULL; n--;
-    }
-
-    p = list;
-    while (n--){
-        temp = new Node();
-        scanf("%d", &temp->Data);
-        temp->Next = p->Next;
-        p->Next = temp;
-        p = p->Next;
-        
-    }
-
-    
-    return list;
-}
-void Print(List L)
-{
-    List temp = L;
-    while (temp != NULL){
-        cout << temp->Data << " ";
-        temp = temp->Next;
-    }
-    putchar('\n');
-}
-//APPEND END
