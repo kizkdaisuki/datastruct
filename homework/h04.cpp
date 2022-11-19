@@ -16,40 +16,12 @@ typedef struct BiTNode {
     struct BiTNode *lchild, *rchild;
 } BiTNode, *BiTree;
 
-typedef struct SeqStack{
-    BiTNode* s[N];
-    int tt;
-}SeqStack; 
 
 typedef struct SeqQueue{
     BiTNode* s[N];
     int hh, tt;
 }queue;
 
-Status InitSeqStack(SeqStack& stack){
-    stack.tt = -1;
-    return OK;
-
-} 
-
-Status IsEmpty(SeqStack& stack){
-    return stack.tt == -1;
-
-}
-
-BiTree Push(SeqStack& stack, BiTree val){
-    stack.s[ ++ stack.tt ] = val;
-
-}
-
-BiTree Pop(SeqStack& stack){
-    stack.tt -- ;
-    
-}
-
-BiTree Top(SeqStack& stack){
-    return stack.s[stack.tt];
-}
 
 int a[N];
 
@@ -62,6 +34,18 @@ Status InitQueue(SeqQueue& s){
     s.tt = -1;
     s.hh = 0;
 }
+
+Status IsEmpty(SeqQueue s){
+    return s.hh > s.tt;
+}
+Status Push(SeqQueue& q, BiTree t){
+    q.s[ ++ q.tt] = t;
+}
+BiTree Front(SeqQueue& q){
+    return q.s[q.hh ++ ];
+}
+
+
 
 Status CreateBiTree(BiTree* T, int idx){ 
     if(a[idx] == -1)
@@ -101,34 +85,22 @@ void PostorderPrint(BiTree T){
     printf("%d ", T->data);
 }
 
-void InorderPrint02(BiTree Tr){
-    SeqStack s;
-    BiTree T = Tr;
-    InitSeqStack(s);
-    // return;
-    while(!IsEmpty(s) || T)
+void Print03(BiTree T){
+    SeqQueue q;
+    InitQueue(q);
+    Push(q, T);
+    printf("%d ", T->data);
+    while (!IsEmpty(q))
     {
-        while(T)
-        {
-            Push(s, T);
-            // printf("%d ", Top(s)->data);
-            // printf("%d ", s[tt]->data);
-            T = T->lchild;
-            // return;
-        }
-        if(!IsEmpty(s))
-        {
-            T = Top(s);
-            Pop(s);
-            printf("%d ", T->data);
-            T = T->rchild;
-        }
+        BiTree t = Front(q);
+        BiTree l = t->lchild;
+        BiTree r = t->rchild;
+        if(l)
+            printf("%d ", l->data), Push(q, l);
+        if(r)
+            printf("%d ", r->data), Push(q, r);
 
     }
-
-}
-
-void Print03(BiTree T){
 
 }
 
@@ -143,7 +115,7 @@ void solve(){
     for(; i <= n; i ++)
         scanf("%d", &a[i]);
     CreateBiTree(&T, 1);
-    puts("PreOrder");
+    puts("PreOrder");][';']
     PreorderPrint(T);
     puts("");
     puts("Inorder");
@@ -153,7 +125,7 @@ void solve(){
     PostorderPrint(T);
     puts("");
     puts("In02");
-    InorderPrint02(T);
+    Print03(T);
 }
 
 int main(){
